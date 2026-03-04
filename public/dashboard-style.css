@@ -1,0 +1,17 @@
+.upload-note-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #f5a623, #ff6b6b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(245,166,35,0.35);
+  transition: all 0.3s ease;
+}
+
+.upload-note-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245,166,35,0.5);
+}

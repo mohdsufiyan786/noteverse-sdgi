@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | NoteVerse</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR - same as dashboard -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-flex">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#f5a623" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z" stroke="#f5a623" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>
+                NoteVerse
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="/views/student_dashboard.html"><i class="fas fa-home" style="width:16px"></i> Home</a></li>
+            <li><a href="/views/my_library.html"><i class="fas fa-book" style="width:16px"></i> My Library</a></li>
+            <li><a href="/views/saved_notes/saved-notes.html"><i class="fas fa-heart" style="width:16px"></i> Saved Notes</a></li>
+            <li><a href="/views/my_uploads/my-uploads.html"><i class="fas fa-upload" style="width:16px"></i> My Uploads</a></li>
+            <li><a href="/views/leaderboard/index.html"><i class="fas fa-trophy" style="width:16px"></i> Leaderboard</a></li>
+            <li class="active"><a href="#"><i class="fas fa-cog" style="width:16px"></i> Profile</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="/views/login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP HEADER -->
+        <div class="top-header animate-fade-down">
+            <div class="header-left">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A1931" stroke-width="2.5">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="welcome-text">
+                    <h1>My Profile ⚙️</h1>
+                    <p class="hide-on-mobile">Enter your Details</p>
+                </div>
+            </div>
+            <div class="profile-section">
+                <div class="profile-pic" id="headerAvatar">MK</div>
+            </div>
+        </div>
+
+        <!-- PROFILE HERO CARD -->
+        <div class="profile-hero-card animate-fade-up">
+            <div class="hero-left">
+                <div class="avatar-wrap">
+                    <div class="p-avatar" id="heroAvatar">MK</div>
+                    <label class="avatar-cam-btn" for="avatarFile" title="Photo change karo">
+                        <i class="fas fa-camera" id="camIcon"></i>
+                    </label>
+                    <input type="file" id="avatarFile" accept="image/*" style="display:none">
+                </div>
+                <div class="hero-details">
+                    <h2 id="heroName">Loading...</h2>
+                    <p id="heroEmail" class="hero-email-text"></p>
+                    <div id="heroTags" class="hero-tags-row"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTIONS -->
+        <div class="profile-sections animate-fade-up delay-1">
+
+            <!-- BASIC INFO -->
+            <div class="p-section">
+                <div class="p-section-header" onclick="toggleSection('basicBody','basicChev')">
+                    <div class="p-section-icon" style="background:#FFF7ED;color:#F97316">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="p-section-title">Basic Information</span>
+                    <i class="fas fa-chevron-down p-chevron open" id="basicChev"></i>
+                </div>
+                <div class="p-section-body" id="basicBody">
+                    <div class="p-form-grid">
+                        <div class="p-input-group">
+                            <label>Full Name</label>
+                            <input type="text" id="inp-name" placeholder="Name">
+                        </div>
+                        <div class="p-input-group">
+                            <label>Roll Number</label>
+                            <input type="text" id="inp-rollNo" placeholder="e.g. BCA2024001">
+                        </div>
+                        <div class="p-input-group">
+                            <label>Course</label>
+                            <select id="inp-course">
+                                <option value="">Select Course</option>
+                                <option value="BCA">BCA</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="MBA">MBA</option>
+                                <option value="MCA">MCA</option>
+                                <option value="B.Com">B.Com</option>
+                            </select>
+                        </div>
+                        <div class="p-input-group">
+                            <label>Semester</label>
+                            <select id="inp-semester">
+                                <option value="">Select Semester</option>
+                                <option value="1st">1st Sem</option>
+                                <option value="2nd">2nd Sem</option>
+                                <option value="3rd">3rd Sem</option>
+                                <option value="4th">4th Sem</option>
+                                <option value="5th">5th Sem</option>
+                                <option value="6th">6th Sem</option>
+                            </select>
+                        </div>
+                        <div class="p-input-group">
+                            <label>College</label>
+                            <input type="text" id="inp-college" placeholder="SDGI University">
+                        </div>
+                        <div class="p-input-group full-col">
+                            <label>Bio / About Me</label>
+                            <textarea id="inp-bio" placeholder="Write something about you..."></textarea>
+                        </div>
+                    </div>
+                    <button class="p-save-btn" id="saveProfileBtn" onclick="saveProfile()">
+                        <i class="fas fa-save"></i> Save Profile
+                    </button>
+                    <div id="profileToast"></div>
+                </div>
+            </div>
+
+            <!-- SOCIAL LINKS -->
+            <div class="p-section">
+                <div class="p-section-header" onclick="toggleSection('socialBody','socialChev')">
+                    <div class="p-section-icon" style="background:#EFF6FF;color:#3B82F6">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <span class="p-section-title">Social Links</span>
+                    <i class="fas fa-chevron-down p-chevron open" id="socialChev"></i>
+                </div>
+                <div class="p-section-body" id="socialBody">
+                    <div class="p-form-grid">
+                        <div class="p-input-group">
+                            <label><i class="fab fa-linkedin" style="color:#0A66C2;margin-right:6px"></i>LinkedIn</label>
+                            <input type="url" id="inp-linkedin" placeholder="linkedin.com/in/username">
+                        </div>
+                        <div class="p-input-group">
+                            <label><i class="fab fa-github" style="color:#0A1931;margin-right:6px"></i>GitHub</label>
+                            <input type="url" id="inp-github" placeholder="github.com/username">
+                        </div>
+                        <div class="p-input-group">
+                            <label><i class="fab fa-twitter" style="color:#1DA1F2;margin-right:6px"></i>Twitter / X</label>
+                            <input type="url" id="inp-twitter" placeholder="twitter.com/username">
+                        </div>
+                    </div>
+                    <button class="p-save-btn" onclick="saveProfile()">
+                        <i class="fas fa-save"></i> Save Links
+                    </button>
+                </div>
+            </div>
+
+            <!-- CHANGE PASSWORD -->
+            <div class="p-section">
+                <div class="p-section-header" onclick="toggleSection('passBody','passChev')">
+                    <div class="p-section-icon" style="background:#FEF2F2;color:#EF4444">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <span class="p-section-title">Change Password</span>
+                    <i class="fas fa-chevron-down p-chevron open" id="passChev"></i>
+                </div>
+                <div class="p-section-body" id="passBody">
+                    <div class="p-form-grid">
+                        <div class="p-input-group full-col">
+                            <label>Current Password</label>
+                            <input type="password" id="inp-currentPass" placeholder="••••••••">
+                        </div>
+                        <div class="p-input-group">
+                            <label>New Password</label>
+                            <input type="password" id="inp-newPass" placeholder="••••••••">
+                        </div>
+                        <div class="p-input-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="inp-confirmPass" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button class="p-save-btn p-save-btn-red" id="changePassBtn" onclick="changePassword()">
+                        <i class="fas fa-key"></i> Change Password
+                    </button>
+                    <div id="passToast"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+function toggleSection(bodyId, chevId) {
+    const body = document.getElementById(bodyId);
+    const chev = document.getElementById(chevId);
+    const isOpen = body.style.display !== 'none';
+    body.style.display = isOpen ? 'none' : 'block';
+    chev.classList.toggle('open', !isOpen);
+}
+function showToast(id, msg, type) {
+    const el = document.getElementById(id);
+    const color = type === 'success' ? '#10b981' : '#EF4444';
+    const bg = type === 'success' ? '#F0FDF4' : '#FEF2F2';
+    const border = type === 'success' ? '#6EE7B7' : '#FECACA';
+    el.innerHTML = `<div style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:500;margin-top:12px;background:${bg};color:${color};border:1px solid ${border};">
+        ${type==='success'?'✅':'❌'} ${msg}
+    </div>`;
+    setTimeout(() => el.innerHTML = '', 3500);
+}
+</script>
+
+<script type="module" src="profile.js"></script>
+<script type="module" src="/dashboard-logic.js"></script>
+<script type="module">
+    import { setupLogout } from "/auth-guard.js";
+    setupLogout();
+</script>
+
+</body>
+</html>

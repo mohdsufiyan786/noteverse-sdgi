@@ -1,0 +1,14 @@
+{
+  "type": "service_account",
+  "project_id": "static-map-425521-g2",
+  "private_key_id": "647eafe9900173ddfcb56c23ed1de4c96b51dc9b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDKgmEH553H0sRy\n+x+l6a0/Bbef//YnbNx2iJ5++1ssJCKatQJoMYG6iEyYnJIzP7wSRzkTPWBnEcwj\nXgjf0H+CdpVYlPEAaDvxj1ruPPvZvo3gYwPujwjkmXJVlC3cQrErZaXQ8fPQVAMS\nTv3fdROnFsnHFLZToqpwzUgAdy0G0fr/Ju8HCa8KfFJtu7FiyyGG4cErtQMuQ4Qg\n3BUPva/mU6m0dINihVY2iH656Qw0vBs/AMlvXYHmSSFh3KSqIwy3oU93euSyUIlP\nL+ZfC04YZWUWkqz4yTnGF1adqPwlV1gEMhJMgJMUbdjVqBKA2rpRfnDHitsqcefy\nx5hyFf2pAgMBAAECggEACn1RDq/DTyPDuTujcAdNSgO/Id0y9ZKAo5iAB+PNMoQh\n/BF+28F0uXdwlZcb8OZO6kN2LrZHKro+m2ELj0xQI9nbR94EfcOTF01tpa7S/NG6\nAkgetASvWT1O3CVIxYKkMAib24Qs35BPzcBPC3wXqy1Vq6eO/4C1g2eetdIhKvEt\n4/61O3rTaNre5nfoyWPc7OQBbQp+TcRjkjKHJHFPU4sDCZa3nbuPXd09Tlq/kJLE\nsSqfzaJi5r/z8YaxKEOvlGfMwdLiDWajpH1zreQeCDM9NKRg//RWdApinfJgQ0XJ\nCgeX++W9ZneNeVG+i+djSKRqLV2V0v82K1ACA9dMYQKBgQDplURFySGyhIRJAMzB\n1y8tADKtCRA0sTEfq4ErsrSo2LOQttXVfoyT/PmkW80Y3lzIVbzrjPeY3DPb4XNQ\npZk6ASI5Cffil1v/5nSDGW0C/depMC94SFBWSITdmBpLio75cIelLJ3beCOWJcYP\nXYpmSXw8bE9ny4U6j7O3Dyk+swKBgQDd8a7iyt9sQiB58L5TZNk3b3y6xKK+lQAx\nSNq1wieC94d4KoirJEkD4IaR5tpZC2MmX1y6355hAqDVLSiSo3Gz8A7JSLzVcJJS\nRdv0A0VQAbj3CED+3rmPzfLmmJZD/KoUlgf8pcniVB+7e3RsShSpspBe2vLQb6Nj\nmBq33ueAMwKBgQCkjYRYSVZU5egvacHVuNtCL4aDwgPJqx55OiA4gZ+l52uwwi0o\nRwuP4cKYmBeHsnbYpxX9NwTiihZ6i3vqT47/fvb2CeC4n3qvb1GbXdkfJ2a7iPeY\nHBGEh3gah+HWX9lTPoRAx4q5pwwi5Z9/CZ3La297Pa4+5/CGjd/EUYjz4wKBgQDR\n90Kr66FSmXx/3/Euk8mrWB13027jPbLg7Tt7mCIpFGNkm1iQD9PDhzXH8c2/T7aN\nJspjQAplXEcrZX1svJNk10Ylxlpe0hCbJNvhDPcVqYuCqJxUggCquvuAi/ocd3uv\n3f/QVEeZhlw+0ZxilfLWV8ec9SWhavv3zH36VTZNYQKBgQDYMsRMaCQB022/QgkA\nvM8NLSkzwZFSRw+MFhmIS/h5Jx5qgpTsiAdx1H4IvXaBHYnUpVhG7HomUvA4TFC1\nh2hYMEdfZ/wrPrPX87J4w/nfU/wDFkBDLtTOY8Qt3mWmtFkuByccuRGVtIxphFML\nRAnHxqVa10r5DfstYSuXfIAp+A==\n-----END PRIVATE KEY-----\n",
+  "client_email": "noteverse-uploader@static-map-425521-g2.iam.gserviceaccount.com",
+  "client_id": "113351104533034643632",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/noteverse-uploader%40static-map-425521-g2.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+ 

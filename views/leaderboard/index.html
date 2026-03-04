@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard | NoteVerse</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="leaderboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-flex">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#FFCC00" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z" stroke="#FFCC00" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>
+                NoteVerse
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/views/student_dashboard.html"><i class="fas fa-home" style="width:16px"></i> Home</a></li>
+            <li><a href="/views/my_library.html"><i class="fas fa-book" style="width:16px"></i> My Library</a></li>
+            <li><a href="/views/saved_notes/saved-notes.html"><i class="fas fa-heart" style="width:16px"></i> Saved Notes</a></li>
+            <li><a href="/views/my_uploads/my-uploads.html"><i class="fas fa-upload" style="width:16px"></i> My Uploads</a></li>
+            <li class="active"><a href="#"><i class="fas fa-trophy" style="width:16px"></i> Leaderboard</a></li>
+            <li><a href="/views/profile/index.html"><i class="fas fa-cog" style="width:16px"></i> Profile</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="/views/login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <div class="top-header animate-fade-down">
+            <div class="header-left">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A1931" stroke-width="2.5">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="welcome-text">
+                    <h1>Leaderboard 🏆</h1>
+                    <p class="hide-on-mobile">Top note contributors of NoteVerse</p>
+                </div>
+            </div>
+            <div class="profile-section">
+                <div class="profile-pic" id="headerAvatar">MK</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="lb-tabs animate-fade-up">
+            <button class="lb-tab active" id="tab-uploads" onclick="switchTab('uploads')">
+                <i class="fas fa-upload"></i> Most Uploads
+            </button>
+            <button class="lb-tab" id="tab-views" onclick="switchTab('views')">
+                <i class="fas fa-eye"></i> Most Views
+            </button>
+        </div>
+
+        <!-- TOP 3 CARDS -->
+        <div class="lb-top3-section animate-fade-up">
+            <div class="lb-section-title">Top Contributors</div>
+            <div class="lb-top3-grid" id="top3Grid">
+                <div class="lb-rank-card rank-1"><div class="lb-skeleton" style="height:180px"></div></div>
+                <div class="lb-rank-card rank-2"><div class="lb-skeleton" style="height:160px"></div></div>
+                <div class="lb-rank-card rank-3"><div class="lb-skeleton" style="height:160px"></div></div>
+            </div>
+        </div>
+
+        <!-- MY RANK -->
+        <div class="lb-my-rank animate-fade-up" id="myRankCard" style="display:none">
+            <div class="my-rank-label">Your Rank</div>
+            <div class="my-rank-info">
+                <div class="my-rank-num" id="myRankNum">#—</div>
+                <div class="my-rank-avatar" id="myRankAvatar">MK</div>
+                <div>
+                    <div class="my-rank-name" id="myRankName">—</div>
+                    <div class="my-rank-score" id="myRankScore">0 uploads</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FULL LIST -->
+        <div class="lb-list-wrap animate-fade-up delay-1">
+            <div class="lb-list-header">
+                <div class="lb-list-title">All Contributors</div>
+                <div class="lb-list-count" id="totalCount">Loading...</div>
+            </div>
+            <div id="lbList">
+                <div style="padding:16px 24px;display:flex;flex-direction:column;gap:10px">
+                    <div class="lb-skeleton" style="height:56px"></div>
+                    <div class="lb-skeleton" style="height:56px"></div>
+                    <div class="lb-skeleton" style="height:56px"></div>
+                    <div class="lb-skeleton" style="height:56px"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+let currentTab = 'uploads';
+function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    window.renderLeaderboard && window.renderLeaderboard(currentTab);
+}
+</script>
+
+<script type="module" src="leaderboard.js"></script>
+<script type="module" src="/dashboard-logic.js"></script>
+<script type="module">
+    import { setupLogout } from "/auth-guard.js";
+    setupLogout();
+</script>
+
+</body>
+</html>

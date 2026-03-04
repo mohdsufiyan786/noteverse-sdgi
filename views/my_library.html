@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library | NoteVerse</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .coming-soon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 100px);
+            padding: 40px 20px;
+        }
+
+        .coming-soon-card {
+            background: white;
+            border-radius: 24px;
+            padding: 60px 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #F1F5F9;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FFCC00, #0A1931, #3B82F6);
+        }
+
+        .cs-icon-wrap {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #FFF7ED, #FED7AA);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            font-size: 40px;
+            box-shadow: 0 8px 24px rgba(249,115,22,0.15);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .cs-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #EFF6FF;
+            color: #3B82F6;
+            border: 1px solid #BFDBFE;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .cs-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: #0A1931;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .cs-title span {
+            color: #F97316;
+        }
+
+        .cs-desc {
+            font-size: 16px;
+            color: #64748B;
+            line-height: 1.7;
+            margin-bottom: 36px;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cs-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 36px;
+            text-align: left;
+        }
+
+        .cs-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #F8FAFC;
+            border-radius: 12px;
+            border: 1px solid #F1F5F9;
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .cs-feature-item:hover {
+            background: #EFF6FF;
+            border-color: #BFDBFE;
+            color: #0A1931;
+            transform: translateY(-2px);
+        }
+
+        .cs-feature-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .cs-progress-wrap {
+            margin-bottom: 32px;
+        }
+
+        .cs-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+
+        .cs-progress-bar {
+            height: 8px;
+            background: #F1F5F9;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .cs-progress-fill {
+            height: 100%;
+            width: 35%;
+            background: linear-gradient(90deg, #FFCC00, #F97316);
+            border-radius: 50px;
+            animation: fillProgress 2s ease forwards;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: 35%; }
+        }
+
+        .cs-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 32px;
+            background: #0A1931;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(10,25,49,0.2);
+        }
+
+        .cs-back-btn:hover {
+            background: #162E52;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10,25,49,0.3);
+        }
+
+        /* BG decorations */
+        .cs-deco-1 {
+            position: absolute;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(255,204,0,0.08) 0%, transparent 70%);
+            bottom: -60px; right: -60px;
+            border-radius: 50%;
+        }
+        .cs-deco-2 {
+            position: absolute;
+            width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%);
+            top: -40px; left: -40px;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon-card { padding: 40px 24px; }
+            .cs-title { font-size: 28px; }
+            .cs-features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-flex">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#FFCC00" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z" stroke="#FFCC00" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>
+                NoteVerse
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/views/student_dashboard.html"><i class="fas fa-home" style="width:16px"></i> Home</a></li>
+            <li class="active"><a href="#"><i class="fas fa-book" style="width:16px"></i> My Library</a></li>
+            <li><a href="/views/saved_notes/saved-notes.html"><i class="fas fa-heart" style="width:16px"></i> Saved Notes</a></li>
+            <li><a href="/views/my_uploads/my-uploads.html"><i class="fas fa-upload" style="width:16px"></i> My Uploads</a></li>
+            <li><a href="/views/leaderboard/index.html"><i class="fas fa-trophy" style="width:16px"></i> Leaderboard</a></li>
+            <li><a href="/views/profile/index.html"><i class="fas fa-cog" style="width:16px"></i> Profile</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="/views/login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-header animate-fade-down">
+            <div class="header-left">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A1931" stroke-width="2.5">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="welcome-text">
+                    <h1>My Library 📚</h1>
+                    <p class="hide-on-mobile">Tumhari personal note library</p>
+                </div>
+            </div>
+            <div class="profile-section">
+                <div class="profile-pic" id="headerAvatar">MK</div>
+            </div>
+        </div>
+
+        <div class="coming-soon-wrapper animate-fade-up">
+            <div class="coming-soon-card">
+                <div class="cs-deco-1"></div>
+                <div class="cs-deco-2"></div>
+
+                <div class="cs-icon-wrap">📚</div>
+
+                <div class="cs-badge">
+                    <i class="fas fa-hammer"></i>
+                    Under Development
+                </div>
+
+                <h2 class="cs-title">My Library is<br><span>Coming Soon!</span></h2>
+
+                <p class="cs-desc">
+                    Hum ek powerful library management system bana rahe hain jahan tum apne sabhi saved notes ko organize, categorize aur easily access kar sako.
+                </p>
+
+                <!-- UPCOMING FEATURES -->
+                <div class="cs-features">
+                    <div class="cs-feature-item">
+                        <i class="fas fa-folder-open" style="color:#F97316"></i>
+                        Smart Folders
+                    </div>
+                    <div class="cs-feature-item">
+                        <i class="fas fa-bookmark" style="color:#3B82F6"></i>
+                        Save Notes
+                    </div>
+                    <div class="cs-feature-item">
+                        <i class="fas fa-tags" style="color:#A855F7"></i>
+                        Tag System
+                    </div>
+                    <div class="cs-feature-item">
+                        <i class="fas fa-search" style="color:#16A34A"></i>
+                        Smart Search
+                    </div>
+                    <div class="cs-feature-item">
+                        <i class="fas fa-sort-amount-down" style="color:#EC4899"></i>
+                        Sort & Filter
+                    </div>
+                    <div class="cs-feature-item">
+                        <i class="fas fa-share-alt" style="color:#FFCC00"></i>
+                        Share Collections
+                    </div>
+                </div>
+
+                <!-- PROGRESS -->
+                <div class="cs-progress-wrap">
+                    <div class="cs-progress-label">
+                        <span>Development Progress</span>
+                        <span>35%</span>
+                    </div>
+                    <div class="cs-progress-bar">
+                        <div class="cs-progress-fill"></div>
+                    </div>
+                </div>
+
+                <a href="/views/student_dashboard.html" class="cs-back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+</script>
+
+<script type="module" src="/dashboard-logic.js"></script>
+<script type="module">
+    import { setupLogout } from "/auth-guard.js";
+    setupLogout();
+</script>
+
+</body>
+</html>

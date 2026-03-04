@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | NoteVerse</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/public/upload-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .sn-heart-btn-dash {
+            position: absolute;
+            top: 14px; right: 14px;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 1px solid #E2E8F0;
+            background: white;
+            color: #CBD5E1;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .sn-heart-btn-dash:hover {
+            background: #FDF2F8;
+            border-color: #FBCFE8;
+            color: #EC4899;
+            transform: scale(1.1);
+        }
+        .sn-heart-btn-dash.saved {
+            background: #FDF2F8;
+            border-color: #FBCFE8;
+            color: #EC4899;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-flex">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#FFCC00" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z" stroke="#FFCC00" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>
+                NoteVerse
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="active"><a href="#"><i class="fas fa-home" style="width:16px"></i> Home</a></li>
+            <li><a href="/views/my_library.html"><i class="fas fa-book" style="width:16px"></i> My Library</a></li>
+            <li><a href="/views/saved_notes/saved-notes.html"><i class="fas fa-heart" style="width:16px"></i> Saved Notes</a></li>
+            <li><a href="/views/my_uploads/my-uploads.html"><i class="fas fa-upload" style="width:16px"></i> My Uploads</a></li>
+            <li><a href="/views/leaderboard/index.html"><i class="fas fa-trophy" style="width:16px"></i> Leaderboard</a></li>
+            <li><a href="/views/profile/index.html"><i class="fas fa-cog" style="width:16px"></i> Profile</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="/views/login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="top-header animate-fade-down">
+            <div class="header-left">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <svg width="22" height="22" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="welcome-text">
+                    <h1 id="user-welcome-name">Hi, User 👋</h1>
+                    <p class="hide-on-mobile">Ready to learn something new today?</p>
+                </div>
+            </div>
+            <div class="profile-section">
+                <button class="upload-note-btn">
+                    <span class="plus-icon">+</span>
+                    <span class="btn-text">Upload Note</span>
+                </button>
+                <div class="profile-pic" id="userAvatar">MK</div>
+            </div>
+        </header>
+
+        <div class="search-section animate-fade-up">
+            <div class="search-bar-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchNotes" placeholder="Search notes, subjects, authors...">
+                <button class="filter-btn" id="filterToggle">⚡ Filters</button>
+            </div>
+
+            <div id="filterPanel" style="display:none;margin-top:12px;background:white;border:1px solid #E2E8F0;border-radius:12px;padding:16px;gap:12px;flex-wrap:wrap;">
+                <select id="filterCourse" style="background:#F8FAFC;border:1px solid #E2E8F0;color:#1E293B;padding:8px 12px;border-radius:8px;font-family:'Inter',sans-serif;outline:none;">
+                    <option value="">All Courses</option>
+                    <option value="BCA">BCA</option>
+                    <option value="B.Tech">B.Tech</option>
+                    <option value="MBA">MBA</option>
+                </select>
+                <select id="filterSem" style="background:#F8FAFC;border:1px solid #E2E8F0;color:#1E293B;padding:8px 12px;border-radius:8px;font-family:'Inter',sans-serif;outline:none;">
+                    <option value="">All Semesters</option>
+                    <option value="1st">1st Sem</option>
+                    <option value="2nd">2nd Sem</option>
+                    <option value="3rd">3rd Sem</option>
+                    <option value="4th">4th Sem</option>
+                    <option value="5th">5th Sem</option>
+                    <option value="6th">6th Sem</option>
+                </select>
+                <button onclick="applyFilters()" style="background:#0A1931;color:white;border:none;padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer;">Apply</button>
+                <button onclick="clearFilters()" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer;">Clear</button>
+            </div>
+
+            <div class="categories-scroll" id="categoryPills">
+                <button class="cat-pill active" data-cat="all">All</button>
+                <button class="cat-pill" data-cat="BCA">BCA</button>
+                <button class="cat-pill" data-cat="B.Tech">B.Tech</button>
+                <button class="cat-pill" data-cat="MBA">MBA</button>
+                <button class="cat-pill" data-cat="1st">1st Sem</button>
+                <button class="cat-pill" data-cat="2nd">2nd Sem</button>
+                <button class="cat-pill" data-cat="Notes">Notes</button>
+                <button class="cat-pill" data-cat="PYQ">PYQ Papers</button>
+            </div>
+        </div>
+
+        <div class="notes-grid-section animate-fade-up delay-1">
+            <div id="notesContainer" class="notes-grid">
+                <div class="note-card" style="gap:12px">
+                    <div class="skeleton" style="height:20px;width:60px;border-radius:50px"></div>
+                    <div class="skeleton" style="height:48px;width:48px;border-radius:12px"></div>
+                    <div class="skeleton" style="height:18px;width:80%"></div>
+                    <div class="skeleton" style="height:14px;width:50%"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                        <div class="skeleton" style="height:38px;border-radius:10px"></div>
+                        <div class="skeleton" style="height:38px;border-radius:10px"></div>
+                    </div>
+                </div>
+                <div class="note-card" style="gap:12px">
+                    <div class="skeleton" style="height:20px;width:60px;border-radius:50px"></div>
+                    <div class="skeleton" style="height:48px;width:48px;border-radius:12px"></div>
+                    <div class="skeleton" style="height:18px;width:80%"></div>
+                    <div class="skeleton" style="height:14px;width:50%"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                        <div class="skeleton" style="height:38px;border-radius:10px"></div>
+                        <div class="skeleton" style="height:38px;border-radius:10px"></div>
+                    </div>
+                </div>
+                <div class="note-card" style="gap:12px">
+                    <div class="skeleton" style="height:20px;width:60px;border-radius:50px"></div>
+                    <div class="skeleton" style="height:48px;width:48px;border-radius:12px"></div>
+                    <div class="skeleton" style="height:18px;width:80%"></div>
+                    <div class="skeleton" style="height:14px;width:50%"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                        <div class="skeleton" style="height:38px;border-radius:10px"></div>
+                        <div class="skeleton" style="height:38px;border-radius:10px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Upload Modal -->
+<div id="uploadModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="header-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="header-title">
+                <h2>Upload Study Material</h2>
+                <p>Share your notes with the community</p>
+            </div>
+            <span class="close-btn" id="closeModal">&times;</span>
+        </div>
+        <form id="uploadNoteForm" class="professional-form">
+            <div class="form-row">
+                <div class="input-group">
+                    <label><i class="fas fa-graduation-cap"></i> Course</label>
+                    <select id="courseSelect" required>
+                        <option value="" disabled selected>Select Course</option>
+                        <option value="BCA">BCA</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="MBA">MBA</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-layer-group"></i> Semester</label>
+                    <select id="semSelect" required>
+                        <option value="" disabled selected>Select Semester</option>
+                        <option value="1st">1st Sem</option>
+                        <option value="2nd">2nd Sem</option>
+                        <option value="3rd">3rd Sem</option>
+                        <option value="4th">4th Sem</option>
+                        <option value="5th">5th Sem</option>
+                        <option value="6th">6th Sem</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-book"></i> Note Title / Subject</label>
+                <input type="text" id="noteTitle" placeholder="e.g. Data Structures Unit 1" required>
+            </div>
+            <div class="file-upload-wrapper">
+                <input type="file" id="noteFile" accept=".pdf" name="noteFile" required>
+                <div class="file-dummy">
+                    <i class="fas fa-file-pdf"></i>
+                    <span id="fileNameDisplay">Click to choose PDF Note</span>
+                    <span style="font-size:12px;color:#94A3B8">Only PDF files • Max 10MB</span>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn" class="submit-btn-animated">
+                <span>Start Upload</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <p id="uploadStatus" style="text-align:center;font-size:13px;color:#64748B;"></p>
+        </form>
+    </div>
+</div>
+
+<!-- File Info Box -->
+<div id="fileInfoBox" class="gov-file-info" style="display:none;">
+    <i class="fas fa-file-pdf"></i>
+    <span id="selectedFileName">No file selected</span>
+    <span id="removeFile" style="color:#EF4444;cursor:pointer;margin-left:auto;font-size:18px;font-weight:bold;">&times;</span>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+let currentCategory = 'all';
+window.allNotes = [];
+
+document.querySelectorAll('.cat-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+        document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCategory = pill.dataset.cat;
+        filterAndRender();
+    });
+});
+
+document.getElementById('searchNotes').addEventListener('input', filterAndRender);
+
+document.getElementById('filterToggle').addEventListener('click', () => {
+    const panel = document.getElementById('filterPanel');
+    panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+});
+
+function applyFilters() { filterAndRender(); }
+
+function clearFilters() {
+    document.getElementById('filterCourse').value = '';
+    document.getElementById('filterSem').value = '';
+    filterAndRender();
+}
+
+function filterAndRender() {
+    const search = document.getElementById('searchNotes').value.toLowerCase();
+    const filterCourse = document.getElementById('filterCourse').value;
+    const filterSem = document.getElementById('filterSem').value;
+    let filtered = (window.allNotes || []).filter(note => {
+        const matchSearch = !search ||
+            (note.title||'').toLowerCase().includes(search) ||
+            (note.course||'').toLowerCase().includes(search) ||
+            (note.uploadedBy||'').toLowerCase().includes(search);
+        const matchCat = currentCategory === 'all' ||
+            (note.course||'').includes(currentCategory) ||
+            (note.semester||'').includes(currentCategory);
+        const matchCourse = !filterCourse || note.course === filterCourse;
+        const matchSem = !filterSem || (note.semester||'').includes(filterSem);
+        return matchSearch && matchCat && matchCourse && matchSem;
+    });
+    renderNotes(filtered);
+}
+
+window.renderNotes = function(notes) {
+    const container = document.getElementById('notesContainer');
+    colorIdx = 0;
+    if (notes.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">📭</div>
+                <h3>No notes found</h3>
+                <p>Try different filters or be the first to upload!</p>
+            </div>`;
+        return;
+    }
+    container.innerHTML = notes.map(note => createCard(note)).join('');
+}
+
+const CARD_COLORS = [
+    { bg: '#FFF7ED', color: '#F97316', border: '#FED7AA' },
+    { bg: '#EFF6FF', color: '#3B82F6', border: '#BFDBFE' },
+    { bg: '#F0FDF4', color: '#16A34A', border: '#BBF7D0' },
+    { bg: '#FAF5FF', color: '#A855F7', border: '#E9D5FF' },
+    { bg: '#FDF2F8', color: '#EC4899', border: '#FBCFE8' },
+];
+let colorIdx = 0;
+
+function createCard(note) {
+    const c = CARD_COLORS[colorIdx % CARD_COLORS.length];
+    colorIdx++;
+    const isSaved = window.savedNoteIds?.has(note.id);
+    return `
+        <div class="note-card animate-fade-up" style="display:flex;flex-direction:column;position:relative;">
+            <button class="sn-heart-btn-dash ${isSaved ? 'saved' : ''}"
+                id="heart-${note.id}"
+                onclick="toggleSaveNote('${note.id}', this)"
+                title="${isSaved ? 'Remove from saved' : 'Save note'}">
+                <i class="fa${isSaved ? 's' : 'r'} fa-heart"></i>
+            </button>
+            <div style="background:${c.bg};color:${c.color};border:1px solid ${c.border};display:inline-block;padding:4px 10px;border-radius:50px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;width:fit-content;">
+                ${note.course || 'General'}
+            </div>
+            <div style="background:${c.bg};color:${c.color};width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px;">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <h3 class="note-title" style="padding-right:42px;">${note.title || 'Untitled Note'}</h3>
+            <p class="note-meta">
+                By ${note.uploadedBy || 'Anonymous'} •
+                <span>${note.semester || ''}</span>
+            </p>
+            <div class="card-filename">
+                <i class="fas fa-paperclip"></i>
+                ${note.fileName || (note.title || 'Note') + '.pdf'}
+            </div>
+            <div style="display:flex;gap:10px;margin-top:auto;padding-top:12px;">
+                <a href="${note.fileUrl}" target="_blank" style="flex:1;text-decoration:none;">
+                    <button style="width:100%;padding:10px;border-radius:10px;background:#EFF6FF;border:1px solid #BFDBFE;color:#3B82F6;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"
+                        onmouseover="this.style.background='#3B82F6';this.style.color='white'"
+                        onmouseout="this.style.background='#EFF6FF';this.style.color='#3B82F6'">
+                        👁 View
+                    </button>
+                </a>
+                <a href="${note.fileUrl}" download style="flex:1;text-decoration:none;">
+                    <button style="width:100%;padding:10px;border-radius:10px;background:linear-gradient(135deg,#FFCC00,#F59E0B);border:none;color:#0A1931;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                        ⬇ Download
+                    </button>
+                </a>
+            </div>
+        </div>`;
+}
+</script>
+
+<!-- Save/Unsave Firebase Logic -->
+<script type="module">
+import { auth, db } from '/firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+let currentUser = null;
+window.savedNoteIds = new Set();
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    currentUser = user;
+    try {
+        const snap = await getDocs(collection(db, 'users', user.uid, 'savedNotes'));
+        snap.forEach(d => window.savedNoteIds.add(d.id));
+    } catch(e) { console.error(e); }
+});
+
+window.toggleSaveNote = async function(noteId, btn) {
+    if (!currentUser) { alert('Pehle login karo!'); return; }
+    const isSaved = window.savedNoteIds.has(noteId);
+    const icon = btn.querySelector('i');
+    if (isSaved) {
+        await deleteDoc(doc(db, 'users', currentUser.uid, 'savedNotes', noteId));
+        window.savedNoteIds.delete(noteId);
+        btn.classList.remove('saved');
+        icon.className = 'far fa-heart';
+    } else {
+        const note = (window.allNotes || []).find(n => n.id === noteId);
+        if (!note) return;
+        await setDoc(doc(db, 'users', currentUser.uid, 'savedNotes', noteId), {
+            title: note.title || '',
+            course: note.course || '',
+            semester: note.semester || '',
+            type: note.type || 'Notes',
+            fileUrl: note.fileUrl || '',
+            fileName: note.fileName || '',
+            uploadedBy: note.uploadedBy || '',
+            savedAt: new Date()
+        });
+        window.savedNoteIds.add(noteId);
+        btn.classList.add('saved');
+        icon.className = 'fas fa-heart';
+        btn.style.transform = 'scale(1.3)';
+        setTimeout(() => btn.style.transform = 'scale(1.1)', 200);
+    }
+};
+</script>
+<script type="module" src="/notes-renderer.js"></script>
+<script type="module" src="/upload-logic.js"></script>
+<script type="module" src="/dashboard-logic.js"></script>
+<script type="module">
+    import { setupLogout } from "/auth-guard.js";
+    setupLogout();
+</script>
+
+</body>
+</html>

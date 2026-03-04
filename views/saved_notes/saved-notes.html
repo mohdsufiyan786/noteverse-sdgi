@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Notes | NoteVerse</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="saved-notes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-flex">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#FFCC00" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z" stroke="#FFCC00" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>
+                NoteVerse
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/views/student_dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/views/my_library.html"><i class="fas fa-book"></i> My Library</a></li>
+            <li class="active"><a href="#"><i class="fas fa-heart"></i> Saved Notes</a></li>
+            <li><a href="/views/my_uploads/my-uploads.html"><i class="fas fa-upload"></i> My Uploads</a></li>
+            <li><a href="/views/leaderboard/index.html"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+            <li><a href="/views/profile/index.html"><i class="fas fa-cog"></i> Profile</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="/views/login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <div class="top-header animate-fade-down">
+            <div class="header-left">
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A1931" stroke-width="2.5">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="welcome-text">
+                    <h1>Saved Notes ❤️</h1>
+                    <p class="hide-on-mobile">Tumhare saved aur favourite notes</p>
+                </div>
+            </div>
+            <div class="profile-section">
+                <div class="profile-pic" id="headerAvatar">MK</div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="mu-stats-bar animate-fade-up">
+            <div class="mu-stat-card">
+                <div class="mu-stat-icon" style="background:#FDF2F8;color:#EC4899">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div>
+                    <div class="mu-stat-num" id="totalSaved">0</div>
+                    <div class="mu-stat-label">Total Saved</div>
+                </div>
+            </div>
+            <div class="mu-stat-card">
+                <div class="mu-stat-icon" style="background:#EFF6FF;color:#3B82F6">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <div class="mu-stat-num" id="totalCourses">0</div>
+                    <div class="mu-stat-label">Courses</div>
+                </div>
+            </div>
+            <div class="mu-stat-card">
+                <div class="mu-stat-icon" style="background:#F0FDF4;color:#16A34A">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div>
+                    <div class="mu-stat-num" id="totalAuthors">0</div>
+                    <div class="mu-stat-label">Authors</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH + FILTER -->
+        <div class="search-section animate-fade-up">
+            <div class="search-bar-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchSaved" placeholder="Search saved notes...">
+            </div>
+        </div>
+
+        <!-- NOTES GRID -->
+        <div class="animate-fade-up delay-1">
+            <div id="savedContainer" class="notes-grid">
+                <div class="note-card"><div class="sn-skeleton" style="height:200px;border-radius:12px"></div></div>
+                <div class="note-card"><div class="sn-skeleton" style="height:200px;border-radius:12px"></div></div>
+                <div class="note-card"><div class="sn-skeleton" style="height:200px;border-radius:12px"></div></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- UNSAVE CONFIRM MODAL -->
+<div class="mu-modal-overlay" id="unsaveModal">
+    <div class="mu-modal-card" style="max-width:380px;text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">💔</div>
+        <h3 style="font-family:'Outfit',sans-serif;font-size:20px;color:#0A1931;margin-bottom:8px">Remove from Saved?</h3>
+        <p style="color:#64748B;font-size:14px;margin-bottom:24px">Yeh note tumhari saved list se remove ho jayega.</p>
+        <div style="display:flex;gap:12px;justify-content:center">
+            <button class="mu-btn-cancel" onclick="closeUnsaveModal()">Cancel</button>
+            <button class="mu-btn-delete" onclick="confirmUnsave()" style="background:linear-gradient(135deg,#EC4899,#DB2777)">
+                <i class="fas fa-heart-broken"></i> Remove
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+let unsaveNoteId = null;
+
+function openUnsaveModal(id) {
+    unsaveNoteId = id;
+    document.getElementById('unsaveModal').classList.add('active');
+}
+function closeUnsaveModal() {
+    document.getElementById('unsaveModal').classList.remove('active');
+    unsaveNoteId = null;
+}
+async function confirmUnsave() {
+    if (!unsaveNoteId) return;
+    await window.unsaveNote(unsaveNoteId);
+    closeUnsaveModal();
+}
+
+document.getElementById('searchSaved').addEventListener('input', function() {
+    const s = this.value.toLowerCase();
+    const filtered = (window.savedNotes || []).filter(n =>
+        (n.title||'').toLowerCase().includes(s) ||
+        (n.course||'').toLowerCase().includes(s) ||
+        (n.uploadedBy||'').toLowerCase().includes(s)
+    );
+    window.renderSaved(filtered);
+});
+</script>
+
+<script type="module" src="saved-notes.js"></script>
+<script type="module" src="/dashboard-logic.js"></script>
+<script type="module">
+    import { setupLogout } from "/auth-guard.js";
+    setupLogout();
+</script>
+
+</body>
+</html>
