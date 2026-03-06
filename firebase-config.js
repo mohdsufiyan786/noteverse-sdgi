@@ -1,11 +1,6 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-// 1. Firestore import zaroori hai
-import { getFirestore, collection, getDocs, query, orderBy} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-
-
+import { getAuth, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBLboDZ0iTz4zeYG6ZXbxjxLNMy0SgWzXQ",
@@ -19,9 +14,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-// 2. db ko yahan initialize karo
 const db = getFirestore(app);
 
-// 3. Dono ko export karo
-export { auth,db, collection, getDocs,query, orderBy};
+// Session hamesha save rahega
+setPersistence(auth, browserLocalPersistence)
+  .then(() => console.log("Persistence set!"))
+  .catch((e) => console.error("Persistence error:", e));
 
+export { auth, db, collection, getDocs, query, orderBy };
