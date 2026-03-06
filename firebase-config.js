@@ -16,9 +16,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Session hamesha save rahega
-setPersistence(auth, browserLocalPersistence)
-  .then(() => console.log("Persistence set!"))
-  .catch((e) => console.error("Persistence error:", e));
+// Local storage mein session save karo
+setPersistence(auth, browserLocalPersistence);
 
 export { auth, db, collection, getDocs, query, orderBy };
