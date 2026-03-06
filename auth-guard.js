@@ -1,17 +1,19 @@
 import { auth } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// 1. Chokidari (Route Protection)
+let isFirstCheck = true;
+
 onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        // Agar user login nahi hai, toh login page par bhej do
-        window.location.href = "login.html";
+    if (isFirstCheck) {
+        isFirstCheck = false;
+        if (!user) {
+            window.location.href = "login.html";
+        }
     }
 });
 
-// 2. Logout Logic
 export function setupLogout() {
-    const logoutBtn = document.getElementById('logout-btn'); // ID check kar lena dashboard HTML mein
+    const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
