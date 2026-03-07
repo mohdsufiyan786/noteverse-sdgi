@@ -39,6 +39,9 @@ app.get('/views/profile', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'profile', 'index.html'));
 });
 
+app.get('/google386c9b703277d4bc.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'google386c9b703277d4bc.html'));
+});
 // Upload Route
 app.post('/api/upload-to-drive', upload.single('noteFile'), async (req, res) => {
     console.log('REQ FILE:', req.file);
